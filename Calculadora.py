@@ -1,4 +1,9 @@
 import streamlit as st
+import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use('Agg')
+from pywaffle import Waffle
 from helpers import *
 
 st.set_page_config(
@@ -18,12 +23,14 @@ st.header('Selecciona las características que buscas en tu pareja')
 
 # Sexo
 st.subheader('Sexo')
-sexo = st.radio('Selección de sexo de la pareja', tuple(dic_opciones_sexo), label_visibility='collapsed', horizontal=True)
+sexo = st.radio('Selección de sexo de la pareja', tuple(dic_opciones_sexo), label_visibility='collapsed',
+                horizontal=True)
 key_sexo = dic_opciones_sexo[sexo]
 
 # Empleo
 st.subheader('Situación laboral')
-empleo = st.radio('Selección de situación laboral de la pareja', tuple(dic_opciones_empleo), label_visibility='collapsed', horizontal=True)
+empleo = st.radio('Selección de situación laboral de la pareja', tuple(dic_opciones_empleo),
+                  label_visibility='collapsed', horizontal=True)
 key_empleo = dic_opciones_empleo[empleo]
 
 # Sueldo
@@ -53,17 +60,28 @@ st.divider()
 df_resultados = get_df_for_keys(key_sexo, key_empleo, key_sueldo, key_edad)
 pob_filtrada = df_resultados.valor.sum()
 sueldo_str = f'* Mínimo \\{sueldo} pesos al mes' if sueldo else ''
-
-st.title('Tu probabilidad de encontrar la pareja ideal es:')
 resultados = get_results(key_sexo, pob_filtrada)
 porcentaje_pob = resultados['porcentaje_pob']
 sexo_seleccionado = resultados['sexo_seleccionado']
 pob_elegible = resultados['pob_elegible']
 expectations = get_expectations(porcentaje_pob)
 
+st.title('Tu probabilidad de encontrar la pareja ideal es:')
 st.title(f'{porcentaje_pob:.2f}%')
 st.markdown(f'(Porcentaje de {sexo_seleccionado} que cumplen las características seleccionadas)')
 
+# Waffle chart
+fig = plt.figure(
+    FigureClass=Waffle,
+    rows=5,
+    columns=20,
+    values=[round(porcentaje_pob), 100 - round(porcentaje_pob)],
+    labels=['Cumplen', 'No cumplen'],
+    colors=['#F54B4B', '#B2B2B2'],
+)
+st.pyplot(fig)
+
+# Expectations judgement
 st.markdown(f"""
 * {sexo}
 * {empleo}
