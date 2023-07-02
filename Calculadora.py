@@ -1,6 +1,10 @@
 import streamlit as st
 from helpers import *
 
+st.set_page_config(
+    page_title='Calculadora de Pareja (Económicamente) Ideal - @mkfnx',
+)
+
 st.title('Probabilidad de encontrar tu pareja (económicamente) ideal en México')
 st.markdown("""
 Instrucciones:  
@@ -27,21 +31,21 @@ key_sueldo = -1
 sueldo = None
 st.subheader('Mínimo de sueldo que deseas que perciba tu pareja')
 if key_empleo > 0:
-    st.text(f'Rangos en salarios mínimos mensuales (${salario_minimo_diario} x 30 días).')
+    st.markdown(f'Rangos en salarios mínimos mensuales (${salario_minimo_diario} x 30 días).')
 else:
-    st.text('El rango de sueldo no está habilitado si seleccionaste "No empleado" en Situación Laboral.')
+    st.markdown('El rango de sueldo no está habilitado si seleccionaste "No empleado" en Situación Laboral.')
 sueldo = st.select_slider('Mínimo de sueldo', dic_sueldos, disabled=(key_empleo == 0))
 key_sueldo = dic_sueldos[sueldo]
 key_sueldo = 0 if key_sueldo == -1 else key_sueldo
 
 # Edad
 st.subheader('Edad')
-st.text('La edad en la fuente de datos está reportada en rangos, con un mínimo de 15 años.')
-st.text('El rango para el cálculo se forma con el valor menor izquierdo y el mayor derecho.')
+st.markdown('La edad en la fuente de datos está reportada en rangos, con un mínimo de 15 años.')
+st.markdown('El rango para el cálculo se forma con el valor menor izquierdo y el mayor derecho.')
 edad = st.select_slider('Selecciona el rango de edad', rangos_edad, (rangos_edad[0], rangos_edad[-1]))
 key_edad = ' | '.join(edad)
 rango_edad = get_rango_edad_str(edad)
-st.text(f'Rango seleccionado: {rango_edad} años')
+st.markdown(f'Rango seleccionado: {rango_edad} años')
 
 st.divider()
 
@@ -58,7 +62,7 @@ pob_elegible = resultados['pob_elegible']
 expectations = get_expectations(porcentaje_pob)
 
 st.title(f'{porcentaje_pob:.2f}%')
-st.text(f'(Porcentaje de {sexo_seleccionado} que cumplen las características seleccionadas)')
+st.markdown(f'(Porcentaje de {sexo_seleccionado} que cumplen las características seleccionadas)')
 
 st.markdown(f"""
 * {sexo}
