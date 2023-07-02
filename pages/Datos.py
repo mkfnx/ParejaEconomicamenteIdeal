@@ -57,3 +57,10 @@ para facilitar la captura de información, y son los siguientes:
   * 4: De 3 a 5 salarios mínimos
   * 5: Más de 5 salarios mínimos
 """)
+
+st.divider()
+
+st.text('Creado por Miguel López (@mkfnx)')
+st.markdown('Más de mi contenido y proyectos en [https://beacons.ai/mkfnx](https://beacons.ai/mkfnx)')
+st.markdown('Política de privacidad: [https://mkfnx.github.io/apps-privacy-policy-es]('
+            'https://mkfnx.github.io/apps-privacy-policy-es)')
