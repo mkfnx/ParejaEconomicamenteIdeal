@@ -70,7 +70,7 @@ def get_expectations(pop_percentage):
         expectations_description = 'Un poco resignado, pero (aún) no desesperado :relieved:'
     else:
         expectations_level = 'Desesperado :grin:'
-        expectations_description = 'Estás de plano dispuesto a aceptar cualquier cosa. ¿Quién te hizo tanto daño? :worried:'
+        expectations_description = 'Estás de plano dispuesto a aceptar cualquier cosa. ¿Quién te hizo daño? :worried:'
 
     return {
         'level': expectations_level,

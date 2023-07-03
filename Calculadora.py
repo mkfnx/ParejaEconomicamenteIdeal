@@ -66,9 +66,15 @@ sexo_seleccionado = resultados['sexo_seleccionado']
 pob_elegible = resultados['pob_elegible']
 expectations = get_expectations(porcentaje_pob)
 
-st.title('Tu probabilidad de encontrar la pareja ideal es:')
+st.title('Resultados:')
+
+# Expectations judgement
+st.subheader(f'Tus expectativas son:')
+st.title(expectations['level'])
+st.markdown(f'##### {expectations["description"]}')
+
 st.title(f'{porcentaje_pob:.2f}%')
-st.markdown(f'(Porcentaje de {sexo_seleccionado} que cumplen las características seleccionadas)')
+st.markdown(f'de {sexo_seleccionado} cumplen las características que indicaste')
 
 # Waffle chart
 fig = plt.figure(
@@ -81,7 +87,6 @@ fig = plt.figure(
 )
 st.pyplot(fig)
 
-# Expectations judgement
 st.markdown(f"""
 * {sexo}
 * {empleo}
@@ -89,9 +94,6 @@ st.markdown(f"""
 * {rango_edad} años
 """)
 st.markdown(f'es decir, {abbrev_quantity(pob_filtrada)} de {abbrev_quantity(pob_elegible)} {sexo_seleccionado}.')
-st.subheader(f'Tus expectativas son:')
-st.title(expectations['level'])
-st.markdown(f'##### {expectations["description"]}')
 
 # Población max
 st.divider()
